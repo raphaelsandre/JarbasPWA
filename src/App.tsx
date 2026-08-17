@@ -127,9 +127,10 @@ export default function App() {
             {messages.length === 0 && !sending ? (
               <section className="welcome">
                 <div className="welcome-avatar"><img src="/icons/jarbas-logo.jpg" alt="Jarbas, assistente Sandre AI" /></div>
-                <p className="eyebrow">PIESOCKET CONECTADO</p>
+                <p className="eyebrow">SOCKET {connection === "connected"? "CONECTADO" : "INDISPONIVEL"}</p>
                 <h1>O que vamos fazer?</h1>
-                <p>Converse com o Jarbas. O contexto e a entrega ficam por conta dele.</p>
+                <p>Converse comigo.</p>
+                <p>Se eu não souber eu invento.</p>
               </section>
             ) : (
               <div className="message-list">

@@ -1,5 +1,32 @@
 # Publicação sem gateway Node
 
+## Serviço do Jarbas
+
+O backend roda como uma unidade systemd do usuário `raphael`. O arquivo fonte
+versionado está em `deploy/systemd/jarbas.service` e a unidade instalada fica em
+`~/.config/systemd/user/jarbas.service`.
+
+Comandos de operação:
+
+```shell
+systemctl --user status jarbas
+systemctl --user restart jarbas
+systemctl --user stop jarbas
+systemctl --user start jarbas
+journalctl --user-unit jarbas -f
+```
+
+A unidade está habilitada no `default.target` e o usuário possui `Linger=yes`,
+portanto o serviço inicia no boot sem depender de uma sessão ou de um `tmux`.
+Para reinstalar a unidade depois de alterar o arquivo versionado:
+
+```shell
+install -d -m 0755 ~/.config/systemd/user
+install -m 0644 deploy/systemd/jarbas.service ~/.config/systemd/user/jarbas.service
+systemctl --user daemon-reload
+systemctl --user enable --now jarbas
+```
+
 ## Build
 
 Gere o bundle no diretório que o Jarbas serve:

@@ -1,0 +1,33 @@
+[Unit]
+Description=Jarbas Automation Core
+Documentation=file:///opt/Assistant/JarbasPwa/DEPLOYMENT.md
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/Assistant/Jarbas
+
+Environment=PYTHONUNBUFFERED=1
+Environment=PYTHONDONTWRITEBYTECODE=1
+ExecStart=/opt/Assistant/Jarbas/.venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 18181
+
+Restart=on-failure
+RestartSec=3s
+TimeoutStartSec=60s
+TimeoutStopSec=30s
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=jarbas
+
+NoNewPrivileges=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+LockPersonality=true
+SystemCallArchitectures=native
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+UMask=0027
+
+[Install]
+WantedBy=default.target
